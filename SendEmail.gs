@@ -25,13 +25,18 @@ function sendEmail(patientName, patientEmail, appointmentDate, itemId) {
                 .setTitle("Email Subject")
                 .setHint('Email Subject')
                 .setValue('Podogo Foot Clinic | Your Report');
-                
+
+  //username derived from email
+  var user = Session.getActiveUser().getEmail();
+  var userName = user.split('@')[0];
+  userName = userName.substr(0, 1).toUpperCase() + userName.slice(1).toLowerCase();
+
   const emailContent = CardService.newTextInput()
                 .setMultiline(true)
                 .setFieldName("Email Body")
                 .setTitle("Body")
                 .setHint("The main section of your email")
-                .setValue('Dear ' + patientName + ',\n\nPlease see attached report regarding your recent appointment on ' + appointmentDate + '\n\nIf you have any queries, please do not hesitate to get in touch.\n\nAll the best\nSteven');
+                .setValue('Dear ' + patientName + ',\n\nPlease see attached report regarding your recent appointment on ' + appointmentDate + '\n\nIf you have any queries, please do not hesitate to get in touch.\n\nAll the best\n' + userName);
                 
    //THE FORM       
   const form = CardService.newCardSection()
